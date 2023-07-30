@@ -1,21 +1,23 @@
-import secrets
+from random import choice
 
 
-def stalin(language: str, person: str):
-    if person == 'S':
-        if language == 'ru':
-            with open('stalin_ru.txt', 'r', encoding='utf-8') as file:
-                text = file.read()
-                text = text.split('\n')
-                full = 0
-                for c in text:
-                    full += 1
-                print(f'\n{secrets.choice(text)}\n--И.В.Сталин.', full)
-        if language == 'en':
-            with open('stalin_en.txt', 'r', encoding='utf-8') as file:
-                text = file.read()
-                text = text.split('\n')
-                print(f'\n{secrets.choice(text)} \n--J.V.Stalin.')
+def get_quote(language: str, person: str) -> str | None:
+    if person != 'S':
+        return None
+    if language == 'ru':
+        with open('stalin_ru.txt', 'r', encoding='utf-8') as file:
+            text = file.read()
+            text = text.split('\n')
+            random_quotes = choice(text)
+            return print(f'\n{random_quotes}\n--И.В.Сталин. \n{text.index(random_quotes)}')
+           
+    if language == 'en':
+        with open('stalin_en.txt', 'r', encoding='utf-8') as file:
+            text = file.read()
+            text = text.split('\n')
+            random_quotes = choice(text)
+            return print(f'\n{choice(text)} \n--J.V.Stalin.\n{text.index(random_quotes)}')
 
 
-stalin('ru', 'S')
+if __name__ == "__main__":
+    get_quote('en', 'S')
